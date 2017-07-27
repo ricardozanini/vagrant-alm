@@ -1,0 +1,23 @@
+---
+- include: compat.yml
+
+- include: include_vars.yml
+
+- include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: install unzip with default package manager
+  action: "{{backcompat_pkg_mgr}} name={{package_name}}"
+  become: yes
+  when: backcompat_pkg_mgr == "yum" or backcompat_pkg_mgr == "apt"
+
+# Use command since dnf was only added as a module in ansible 1.9.0
+- name: install unzip with dnf
+  command: dnf install -y {{package_name}}
+  args:
+    creates: /usr/bin/unzip
+  become: yes
+  when: backcompat_pkg_mgr == "dnf"

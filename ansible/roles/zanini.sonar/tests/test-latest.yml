@@ -1,0 +1,52 @@
+---
+- hosts: all
+
+  vars:
+    # Latest version of SonarQube, from http://www.sonarqube.org/downloads/
+    sonar_version: 5.6.1
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Install dependencies.
+      package: "name={{ item }} state=present"
+      with_items:
+        - curl
+        - unzip
+
+    - name: Add repository for OpenJDK 8 (Ubuntu 14).
+      apt_repository: repo='ppa:openjdk-r/ppa'
+      when: ansible_os_family == "Debian" and ansible_distribution_version == "14.04"
+
+    - name: Install the MySQL repo (RedHat).
+      yum:
+        name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Override variables for MySQL (RedHat).
+      set_fact:
+        mysql_daemon: mysqld
+        mysql_packages: ['mysql-server']
+        mysql_log_error: /var/log/mysqld.err
+        mysql_syslog_tag: mysqld
+        mysql_pid_file: /var/run/mysqld/mysqld.pid
+        mysql_socket: /var/lib/mysql/mysql.sock
+      when: ansible_os_family == "RedHat"
+
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk
+
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'Debian'"
+      java_packages:
+        - openjdk-8-jdk
+
+    - geerlingguy.mysql
+    - role_under_test

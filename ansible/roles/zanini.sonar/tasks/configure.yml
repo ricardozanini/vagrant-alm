@@ -1,0 +1,6 @@
+---
+- include: configure_mysql.yml
+  when: sonar_database_engine == "mysql"
+
+- include: configure_postgres.yml
+  when: sonar_database_engine == "postgres"

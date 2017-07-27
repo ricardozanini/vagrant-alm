@@ -1,0 +1,9 @@
+---
+# https://mariadb.com/kb/en/mariadb/yum/
+- name: Add MariaDB Repository
+  yum_repository:
+    name: MariaDB
+    description: MariaDB YUM repository
+    baseurl: http://yum.mariadb.org/10.1/centos7-amd64
+    gpgcheck: yes
+    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB

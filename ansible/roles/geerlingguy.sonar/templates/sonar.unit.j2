@@ -1,0 +1,14 @@
+[Unit]
+Description=SonarQube
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/sonar start
+ExecStop=/usr/bin/sonar stop
+ExecReload=/usr/bin/sonar restart
+PIDFile=/usr/local/sonar/bin/linux-x86-64/./SonarQube.pid
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+---
+- include: call_script.yml
+  vars:
+    script_name: setup_ldap
+    args:
+      name: "{{ item.ldap_name }}"
+      protocol: "{{ item.ldap_protocol }}"
+      hostname: "{{ item.ldap_hostname }}"
+      port: "{{ item.ldap_port }}"
+      auth: "{{ item.ldap_auth | default('none') }}"
+      username: "{{ item.ldap_auth_username | default('') }}"
+      password: "{{ item.ldap_auth_password | default('') }}"
+      search_base: "{{ item.ldap_search_base }}"
+      user_base_dn: "{{ item.ldap_user_base_dn | default('ou=users') }}"
+      user_object_class: "{{ item.ldap_user_object_class }}"
+      user_id_attribute: "{{ item.ldap_user_id_attribute }}"
+      user_real_name_attribute: "{{ item.ldap_user_real_name_attribute }}"
+      user_email_attribute: "{{ item.ldap_user_email_attribute }}"
+      map_groups_as_roles: "{{ item.ldap_map_groups_as_roles | default(false) }}"
+      group_base_dn: "{{ item.ldap_group_base_dn | default('ou=groups') }}"
+      group_object_class: "{{ item.ldap_group_object_class | default('groupOfNames') }}"
+      group_id_attribute: "{{ item.ldap_group_id_attribute | default('cn') }}"
+      group_member_attribute: "{{ item.ldap_group_member_attribute | default('member') }}"
+      group_member_format: "{{ item.ldap_group_member_format | default('uid=${username},ou=users,dc=yourcompany') }}"
+      user_subtree: "{{ item.ldap_user_subtree | default(false) }}"
+      group_subtree: "{{ item.ldap_group_subtree | default(false) }}"

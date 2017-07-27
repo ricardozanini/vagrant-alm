@@ -1,0 +1,5 @@
+nexus_version: '3.4.0-02'
+nexus_timezone: 'America/Sao_Paulo'
+nexus_admin_password: 'admin123'
+nexus_anonymous_access: true
+public_hostname: 'nexus.local'

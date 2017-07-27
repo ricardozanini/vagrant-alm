@@ -1,0 +1,26 @@
+---
+dependencies:
+  - geerlingguy.java
+  # edunham.net/2015/09/10/ansible_conditional_role_dependencies.html
+  - {role: 'geerlingguy.postgresql', when: sonar_database_engine == 'postgres', become: yes}
+  - {role: 'geerlingguy.mysql', when: sonar_database_engine == 'mysql'}
+
+galaxy_info:
+  author: geerlingguy
+  description: SonarQube for Linux
+  company: "Midwestern Mac, LLC"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.8
+  platforms:
+    - name: EL
+      versions:
+      - all
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - development
+    - monitoring

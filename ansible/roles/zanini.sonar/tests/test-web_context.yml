@@ -1,0 +1,22 @@
+---
+- hosts: all
+
+  vars:
+    sonar_web_context: "/sonar"
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Install dependencies.
+      package: "name={{ item }} state=present"
+      with_items:
+        - curl
+        - unzip
+
+  roles:
+    - geerlingguy.java
+    - geerlingguy.mysql
+    - role_under_test

@@ -1,0 +1,5 @@
+# https://github.com/geerlingguy/ansible-role-jenkins
+jenkins_package_state: latest
+jenkins_admin_username: admin
+jenkins_admin_password: admin123
+jenkins_plugins: ['ansible', 'Pipeline+Plugin', 'workflow-aggregator', 'slack', 'slack-uploader']

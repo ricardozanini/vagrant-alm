@@ -1,0 +1,98 @@
+---
+- name: install python-apt on ansible < 1.6.0 and ubuntu et al
+  become: yes
+  raw: >
+    if > /dev/null command -v apt-get; then
+       python -c "import apt" ||
+       (> /dev/null command -v apt-get &&
+          (apt-get install -y python-apt ||
+             (apt-get update -qq && apt-get install -y python-apt)));
+    fi
+  when: ansible_os_family == 'Debian'
+  changed_when: False
+
+- name: install python-pycurl on ansible < 1.6.0 and ubuntu et al
+  become: yes
+  raw: >
+    if > /dev/null command -v apt-get; then
+       python -c "import pycurl" ||
+       (> /dev/null command -v apt-get &&
+          (apt-get install -y python-pycurl ||
+             (apt-get update -qq && apt-get install -y python-pycurl)));
+    fi
+  when: ansible_os_family == 'Debian'
+  changed_when: False
+
+- name: install python2-yum on ansible <=1.9.2/fedora 24
+  become: yes
+  raw: >
+    if > /dev/null command -v yum && ! > /dev/null command -v dnf; then
+       python -c "import yum" ||
+       (> /dev/null command -v yum && ! > /dev/null command -v dnf && yum install -y python2-yum);
+    fi
+  when: ansible_os_family == 'RedHat'
+  changed_when: False
+
+- name: install python2-dnf on ansible 2.1/fedora 24
+  become: yes
+  raw: >
+    if > /dev/null command -v dnf; then
+       python -c "import dnf" ||
+       (> /dev/null command -v dnf && dnf install -y python2-dnf);
+    fi
+  when: ansible_os_family == 'RedHat'
+  changed_when: False
+
+# Set backcompat_pkg_mgr for versions of ansible that set
+# ansible_pkg_mgr to yum instead of dnf
+- name: check for dnf
+  raw: "> /dev/null command -v dnf"
+  register: dnf_result
+  ignore_errors: True
+  when: ansible_os_family == 'RedHat'
+  changed_when: False
+
+- set_fact:
+    backcompat_pkg_mgr: 'dnf'
+  when: ansible_os_family == 'RedHat' and dnf_result|success
+
+- set_fact:
+    backcompat_pkg_mgr: '{{ansible_pkg_mgr}}'
+  when: ansible_os_family == 'RedHat' and dnf_result|failed
+
+- set_fact:
+    backcompat_pkg_mgr: '{{ansible_pkg_mgr}}'
+  when: ansible_os_family == 'Debian'
+
+- set_fact:
+    ansible_distribution_major_version: >
+      {{ansible_distribution_version|truncate(2,true,'',0)|replace(".", " ")|trim|float|int|string}}
+  when: ansible_distribution_major_version is not defined
+
+- set_fact:
+    ansible_distribution_major_version: >
+      {{ansible_distribution_version|truncate(4,true,'',0)|replace("."," ")|trim|float|int|string}}
+  when: ansible_distribution_major_version is not defined or not ansible_distribution_major_version
+
+- name: check for wget
+  raw: "> /dev/null command -v wget"
+  register: wget_result
+  ignore_errors: True
+  changed_when: False
+
+# Install wget due to https://github.com/ansible/ansible/issues/12161
+- name: install wget with non-dnf
+  action: "{{backcompat_pkg_mgr}} name=wget"
+  become: yes
+  when: >
+    (backcompat_pkg_mgr == "yum" or backcompat_pkg_mgr == "apt")
+       and wget_result|failed
+
+# Install wget due to https://github.com/ansible/ansible/issues/12161
+# Use command since dnf was only added as a module in ansible 1.9.0
+- name: install wget with dnf
+  command: dnf install -y wget
+  args:
+    creates: /usr/bin/wget
+  become: yes
+  when: backcompat_pkg_mgr == "dnf" and wget_result|failed

@@ -1,0 +1,66 @@
+---
+- name: Create a database for Sonar.
+  mysql_db:
+    name: "{{ sonar_mysql_database }}"
+    state: present
+
+- name: Create a sonar user.
+  mysql_user:
+    name: "{{ sonar_mysql_username }}"
+    host: "{{ item }}"
+    priv: "{{ sonar_mysql_database }}.*:ALL"
+    password: "{{ sonar_mysql_password }}"
+  with_items: "{{ sonar_mysql_allowed_hosts }}"
+
+- name: Download Sonar.
+  get_url:
+    url: "{{ sonar_download_url }}"
+    dest: "{{ workspace }}/{{ sonar_version_directory }}.zip"
+    validate_certs: "{{ sonar_download_validate_certs }}"
+
+- name: Unzip Sonar.
+  unarchive:
+    src: "{{ workspace }}/{{ sonar_version_directory }}.zip"
+    dest: /usr/local/
+    copy: no
+    creates: /usr/local/sonar/COPYING
+
+- name: Move Sonar into place.
+  shell: >
+    mv /usr/local/{{ sonar_version_directory }} /usr/local/sonar
+    creates=/usr/local/sonar/COPYING
+
+- include: configure.yml
+
+- name: Symlink sonar bin.
+  file:
+    src: /usr/local/sonar/bin/linux-x86-64/sonar.sh
+    dest: /usr/bin/sonar
+    state: link
+  register: sonar_symlink
+
+- name: Add sonar as init script for service management.
+  file:
+    src: /usr/local/sonar/bin/linux-x86-64/sonar.sh
+    dest: /etc/init.d/sonar
+    state: link
+  when: "ansible_service_mgr != 'systemd'"
+
+- name: Copy SonarQube systemd unit file into place (for systemd systems).
+  template:
+    src: sonar.unit.j2
+    dest: /etc/systemd/system/sonar.service
+    owner: root
+    group: root
+    mode: 0755
+  when: "ansible_service_mgr == 'systemd'"
+
+- name: Ensure Sonar is running and set to start on boot.
+  service: name=sonar state=started enabled=yes
+
+- name: Allow Sonar time to build on first start.
+  pause: seconds=180
+  when: sonar_symlink.changed
+
+- name: Make sure Sonar is responding on the configured port.
+  wait_for: port=9000 delay=3 timeout=300

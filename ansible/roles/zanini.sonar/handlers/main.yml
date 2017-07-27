@@ -1,0 +1,7 @@
+---
+- name: restart sonar
+  service: name=sonar state=restarted
+  notify: wait for sonar
+
+- name: wait for sonar
+  wait_for: port=9000 delay=3 timeout=300
