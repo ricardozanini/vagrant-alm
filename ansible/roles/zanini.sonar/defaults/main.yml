@@ -9,28 +9,22 @@ sonar_version_directory: "sonarqube-{{ sonar_version }}"
 
 sonar_web_context: ''
 
-# Database engine
-
+# The Database engine.
+# possible values: postgres and mysql
 sonar_database_engine: postgres
 
+# Database connection details
+
+sonar_database_username: sonar
+sonar_database_password: sonar
+
+sonar_database_host: localhost
+# mysqlsql default port is 3306 and the postgres' is 5432
+sonar_database_port: "5432"
+sonar_database_name: sonar
+
 # MySQL database connection details.
-sonar_mysql_username: sonar
-sonar_mysql_password: sonar
-
-sonar_mysql_host: localhost
-sonar_mysql_port: "3306"
-sonar_mysql_database: sonar
-
 sonar_mysql_allowed_hosts:
   - "127.0.0.1"
   - "::1"
   - "localhost"
-
-# Postgres database connection details
-
-sonar_postgres_username: sonar
-sonar_postgres_password: sonar
-
-sonar_postgres_host: localhost
-sonar_postgres_port: "5432"
-sonar_postgres_database: sonar

@@ -3,7 +3,7 @@
   become: yes
   become_user: "{{ postgresql_user }}"
   postgresql_db:
-    name: "{{ sonar_postgres_database }}"
+    name: "{{ sonar_database_name }}"
     encoding: UTF-8 
     state: present
 
@@ -11,9 +11,9 @@
   become: yes
   become_user: "{{ postgresql_user }}"
   postgresql_user:
-    name: "{{ sonar_postgres_username }}"
-    password: "{{ sonar_postgres_password }}"
-    db: "{{ sonar_postgres_database }}"
+    name: "{{ sonar_database_username }}"
+    password: "{{ sonar_database_password }}"
+    db: "{{ sonar_database_name }}"
     priv: "ALL"
 
 - name: Configure SonarQube JDBC settings for Postgres.
@@ -24,10 +24,10 @@
   notify: restart sonar
   with_items:
     - regexp: "^sonar.jdbc.username"
-      line: "sonar.jdbc.username={{ sonar_postgres_username }}"
+      line: "sonar.jdbc.username={{ sonar_database_username }}"
     - regexp: "^sonar.jdbc.password"
-      line: "sonar.jdbc.password={{ sonar_postgres_password }}"
+      line: "sonar.jdbc.password={{ sonar_database_password }}"
     - regexp: "^sonar.jdbc.url"
-      line: "sonar.jdbc.url=jdbc:postgresql://{{ sonar_postgres_host }}:{{ sonar_postgres_port }}/{{ sonar_postgres_database }}"
+      line: "sonar.jdbc.url=jdbc:postgresql://{{ sonar_database_host }}:{{ sonar_database_port }}/{{ sonar_database_name }}"
     - regexp: "^sonar.web.context"
       line: "sonar.web.context={{ sonar_web_context }}"
