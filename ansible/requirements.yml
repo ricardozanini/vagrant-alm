@@ -1,0 +1,11 @@
+- src: geerlingguy.java
+
+- src: geerlingguy.jenkins
+
+- src: geerlingguy.postgresql
+
+- src: geerlingguy.sonar
+
+- src: wtanaka.unzip
+
+- src: savoirfairelinux.nexus3-oss
