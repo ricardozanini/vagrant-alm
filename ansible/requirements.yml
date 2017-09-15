@@ -9,3 +9,11 @@
 - src: wtanaka.unzip
 
 - src: savoirfairelinux.nexus3-oss
+
+- src: geerlingguy.git
+
+- src: tecris.maven
+
+- src: geerlingguy.repo-epel
+
+- src: geerlingguy.ansible

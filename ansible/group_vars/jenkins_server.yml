@@ -2,4 +2,17 @@
 jenkins_package_state: latest
 jenkins_admin_username: admin
 jenkins_admin_password: admin123
-jenkins_plugins: ['ansible', 'Pipeline+Plugin', 'workflow-aggregator', 'slack', 'slack-uploader']
+jenkins_plugins: [
+  'sonar', 
+  'nexus-artifact-uploader', 
+  'ansible', 
+  'workflow-aggregator', 
+  'slack', 
+  'slack-uploader', 
+  'git', 
+  'github', 
+  'credentials-binding'
+  ]
+maven_release: 3.5.0
+java_packages:
+  - java-1.8.0-openjdk-devel

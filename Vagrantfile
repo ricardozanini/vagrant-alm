@@ -35,6 +35,11 @@ Vagrant.configure("2") do |config|
       nexus.vm.network :private_network, ip: "172.16.10.120"
   end
 
+  config.vm.define "app", primary: true do |nexus|
+    config.vm.hostname = "app.local"
+    nexus.vm.network :private_network, ip: "172.16.10.130"
+end
+
   config.vm.provider "libvirt" do |libvirt|
       libvirt.storage_pool_name = "ext_storage"
   end
@@ -44,7 +49,8 @@ Vagrant.configure("2") do |config|
       ansible.groups = {
           "jenkins_server" => ["jenkins"],
           "sonar_server" => ["sonar"],
-          "nexus_server" => ["nexus"]
+          "nexus_server" => ["nexus"],
+          "app_server" => ["app"]
       }
   end
 

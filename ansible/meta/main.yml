@@ -5,3 +5,7 @@ dependencies:
   - geerlingguy.sonar
   - wtanaka.unzip
   - savoirfairelinux.nexus3-oss
+  - geerlingguy.git
+  - tecris.maven
+  - geerlingguy.repo-epel
+  - geerlingguy.ansible

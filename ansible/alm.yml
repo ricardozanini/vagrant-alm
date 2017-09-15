@@ -6,7 +6,11 @@
   become: yes
 
   roles:
+    - geerlingguy.repo-epel
     - geerlingguy.jenkins
+    - geerlingguy.git
+    - tecris.maven
+    - geerlingguy.ansible
 
 - name: Deploy Nexus Server
   hosts: nexus_server
@@ -25,3 +29,8 @@
   roles:
     - wtanaka.unzip
     - zanini.sonar
+
+- name: On Premises CentOS
+  hosts: app_server
+  remote_user: vagrant
+  become: yes
