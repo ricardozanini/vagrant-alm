@@ -33,12 +33,18 @@ Vagrant.configure("2") do |config|
   config.vm.define "nexus", primary: true do |nexus|
       config.vm.hostname = "nexus.local"
       nexus.vm.network :private_network, ip: "172.16.10.120"
+      nexus.vm.provider :libvirt do |lb|
+        lb.memory = 1024
+      end
   end
 
-  config.vm.define "app", primary: true do |nexus|
+  config.vm.define "app", primary: true do |app|
     config.vm.hostname = "app.local"
-    nexus.vm.network :private_network, ip: "172.16.10.130"
-end
+    app.vm.network :private_network, ip: "172.16.10.130"
+    app.vm.provider :libvirt do |lb|
+        lb.memory = 512
+    end
+  end
 
   config.vm.provider "libvirt" do |libvirt|
       libvirt.storage_pool_name = "ext_storage"

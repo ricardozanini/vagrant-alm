@@ -11,7 +11,10 @@ jenkins_plugins: [
   'slack-uploader', 
   'git', 
   'github', 
-  'credentials-binding'
+  'credentials-binding',
+  'pipeline-utility-steps',
+  'disk-usage',
+  'ws-cleanup'
   ]
 maven_release: 3.5.0
 java_packages:
