@@ -16,7 +16,7 @@ The process could be summarized as follows:
 
 4. And finally, a simple CentOS 7 machine waiting to receive the binaries and be provisioned by Jenkins using the [Ansible Plugin](https://wiki.jenkins.io/display/JENKINS/Ansible+Plugin).
 
-I've managed to build a simple lab using this sample workflow that could be found [in here](https://github.com/ricardozanini/soccer-stats).
+I've managed to build a simple lab using this sample workflow that could be found [in here](https://github.com/ricardozanini/soccer-stats). Also, if you are interested, [there's a presentation](https://docs.google.com/presentation/d/1sXz5b_PX6wuhpXJqanXD3Sk-AMdL4SV_J628pr7Ccwc/edit?usp=sharing) that I did on Ansible Meetup in São Paulo describing this scenario. Enjoy!
 
 ## How to use
 
