@@ -1,6 +1,6 @@
 # Vagrant ALM - Application Lifecicle Management for labs and tests
 
-This project aims to built a [ALM](https://en.wikipedia.org/wiki/Application_lifecycle_management) infrastructure within a virtual environment using [Vagrant](https://www.vagrantup.com/) and provisioning with [Ansible](https://www.ansible.com/).
+This project aims to build a [ALM](https://en.wikipedia.org/wiki/Application_lifecycle_management) infrastructure within a virtual environment using [Vagrant](https://www.vagrantup.com/) and provisioning with [Ansible](https://www.ansible.com/).
 
 The picture bellow illustrates the infrastructure defined in the Vagrant file:
 
@@ -22,9 +22,9 @@ I've managed to build a simple lab using this sample workflow that could be foun
 
 Just install Vagrant on your unix machine and you are ready to go. I've tried to keep the `Vagrantfile` as much agnostic as possible to be simple to reproduce on any Vagrant environment. Even if you couldn't manage to work, I hope this file could help you at least as a reference.
 
-Remember that the Ansible playbooks on this repo are the real roject star. It's responsible to give the environment everything you need to build your ALM.
+Remember that the Ansible playbooks on this repo are the real project rock star. It's responsible to give the environment everything you need to build your ALM.
 
-Don't forget to install the Ansible Roles from the repositoty by executing:
+Don't forget to install the Ansible Roles from the repository by executing the following command from the project's root dir:
 
 `ansible-galaxy install -r ansible/requirements.yml`
 
