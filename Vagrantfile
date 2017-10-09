@@ -46,6 +46,14 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.define "app2", primary: true do |app2|
+    config.vm.hostname = "app2.local"
+    app2.vm.network :private_network, ip: "172.16.10.140"
+    app2.vm.provider :libvirt do |lb|
+        lb.memory = 512
+    end
+  end
+
   config.vm.provider "libvirt" do |libvirt|
       libvirt.storage_pool_name = "ext_storage"
   end
@@ -56,7 +64,7 @@ Vagrant.configure("2") do |config|
           "jenkins_server" => ["jenkins"],
           "sonar_server" => ["sonar"],
           "nexus_server" => ["nexus"],
-          "app_server" => ["app"]
+          "app_server" => ["app", "app2"],
       }
   end
 
