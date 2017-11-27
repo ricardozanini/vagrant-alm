@@ -24,3 +24,8 @@
     owner: jenkins
     group: jenkins
     mode: 0600
+
+- name: Reseting network eth1
+  service:
+    name: network
+    state: restarted

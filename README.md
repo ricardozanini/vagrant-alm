@@ -32,6 +32,10 @@ Don't forget to install the Ansible Roles from the repository by executing the f
 
 The original ansible role [`geerlingguy.sonar`](https://github.com/geerlingguy/ansible-role-sonar) doesn't work with Postgres. I've already sent a [pull request](https://github.com/geerlingguy/ansible-role-sonar/pull/32) to the original author but until now, he haven't have the time to merge. In the future I have plans to aniquilate the `zanini.sonar` role from the local dir and rely only on the Geerling Guy's role.
 
+There's [an issue on Vagrant 1.9.1](https://github.com/mitchellh/vagrant/issues/8166) that is very annoying: the `eth01` needs a restart after bring the machine up. Do the following after sshing at the machine:
+
+`sudo /etc/init.d/network restart`
+
 ## Credits
 
 - [Geerling Guy](https://github.com/geerlingguy) for the awesome roles
