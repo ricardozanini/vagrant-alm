@@ -2,7 +2,7 @@
 # Let's rock on ALM
 - name: Deploy Jenkins CI
   hosts: jenkins_server
-  remote_user: vagrant
+  remote_user: "{{ ansible_ssh_user | default('vagrant') }}"
   become: yes
 
   roles:
@@ -14,7 +14,7 @@
 
 - name: Deploy Nexus Server
   hosts: nexus_server
-  remote_user: vagrant
+  remote_user: "{{ ansible_ssh_user | default('vagrant') }}"
   become: yes
 
   roles:
@@ -23,7 +23,7 @@
 
 - name: Deploy Sonar Server
   hosts: sonar_server
-  remote_user: vagrant
+  remote_user: "{{ ansible_ssh_user | default('vagrant') }}"
   become: yes
 
   roles:
@@ -32,7 +32,7 @@
 
 - name: On Premises CentOS
   hosts: app_server
-  remote_user: vagrant
+  remote_user: "{{ ansible_ssh_user | default('vagrant') }}"
   become: yes
 
   roles:
