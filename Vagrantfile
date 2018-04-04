@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
       config.vm.hostname = "jenkins.local"
       jenkins.vm.network :private_network, ip: "172.16.10.100"
       jenkins.vm.provider :libvirt do |lb|
-          lb.memory = 1024
+          lb.memory = 2048
       end
   end
 
