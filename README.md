@@ -26,7 +26,20 @@ Remember that the Ansible playbooks on this repo are the real project rock star.
 
 Don't forget to install the Ansible Roles from the repository by executing the following command from the project's root dir:
 
-`ansible-galaxy install -r ansible/requirements.yml`
+`ansible-galaxy install -r requirements.yml`
+
+### Jenkins confiuration post install
+
+After your Jenkins server got provisioned, you will need to set:
+
+1. Ansible Tower Global Credentials:
+   a. Username: your username
+   b. Password: your pass
+   c. ID: tower
+
+### Ansible Tower
+
+To provision Ansible Tower you have to first install VirtualBox and then execute: `vagrat up tower --provider virtualbox`. A brand new machine with Ansible Tower will be provisioned for you. After installation, go to  http://tower.local and set your trial license and you're a set!
 
 ## Notes
 

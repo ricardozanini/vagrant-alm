@@ -14,10 +14,12 @@ jenkins_plugins: [
   'credentials-binding',
   'pipeline-utility-steps',
   'disk-usage',
-  'ws-cleanup'
+  'ws-cleanup',
+  'ansible-tower',
+  'ansicolor'
   ]
 maven_major: 3
-maven_release: 3.5.3
-maven_version: 3.5.3
+maven_release: 3.5.4
+maven_version: 3.5.4
 java_packages:
   - java-1.8.0-openjdk-devel
