@@ -26,7 +26,7 @@ Remember that the Ansible playbooks on this repo are the real project rock star.
 
 Don't forget to install the Ansible Roles from the repository by executing the following command from the project's root dir:
 
-`ansible-galaxy install -r ansible/requirements.yml`
+`ansible-galaxy install -r ansible/roles/requirements.yml`
 
 ## Notes
 
