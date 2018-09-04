@@ -28,7 +28,7 @@ Don't forget to install the Ansible Roles from the repository by executing the f
 
 `ansible-galaxy install -r requirements.yml`
 
-### Jenkins confiuration post install
+### Jenkins configuration post install
 
 After your Jenkins server got provisioned, you will need to set:
 
@@ -36,6 +36,16 @@ After your Jenkins server got provisioned, you will need to set:
    a. Username: your username
    b. Password: your pass
    c. ID: tower
+
+2. Ansible Tower Installation:
+   a. Name: tower
+   b. URL: https://tower.local
+   c. Credenctials: the same that was set in the last step
+   d. Force Trust Cert: true
+
+3. Maven in Global Tool Configuration:
+   a. Name: M3
+   b. MAVEN_HOME: `/opt/apache-maven-3.5.4`
 
 ### Ansible Tower
 
