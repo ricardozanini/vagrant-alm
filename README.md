@@ -20,7 +20,7 @@ I've managed to build a simple lab using this sample workflow that could be foun
 
 ## How to use
 
-Just install Vagrant on your unix machine and you are ready to go. I've tried to keep the `Vagrantfile` as much agnostic as possible to be simple to reproduce on any Vagrant environment. Even if you couldn't manage to work, I hope this file could help you at least as a reference.
+Just install Vagrant on your unix machine and you are ready to go. I've tried to keep the `Vagrantfile` as much agnostic as possible to be simple to reproduce on any Vagrant environment. Even if you couldn't manage to work, I hope this file could help you at least as a reference. Also install the Vagrant Networkmanager plugin to have your `hosts` file configured accordingly: `vagrant plugin install vagrant-hostmanager`.
 
 Remember that the Ansible playbooks on this repo are the real project rock star. It's responsible to give the environment everything you need to build your ALM.
 
