@@ -1,4 +1,12 @@
 ---
+# requirements install
+- name: Install Roles from Galaxy
+  hosts: all
+  connection: local
+  tasks:
+    - name: installing required ansible-galaxy roles
+      command: "ansible-galaxy install --ignore-errors -r requirements.yml"
+
 # Let's rock on ALM
 - name: Deploy Jenkins CI
   hosts: jenkins_server
