@@ -49,8 +49,8 @@
   firewalld:
     port: 9000/tcp
     permanent: yes 
-    state: enable 
-  ignores_errors: yes 
+    state: enabled
+#  ignores_errors: yes 
 
 
 - name: Allow Sonar time to build on first start.
