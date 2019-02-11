@@ -19,7 +19,6 @@
     mode: 0700
     owner: jenkins
     group: jenkins
-    
 
 - name: Add pub key
   copy:
