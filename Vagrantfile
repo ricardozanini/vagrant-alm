@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
     sonar.vm.network :private_network, ip: "192.168.56.4"
     sonar.vm.provider :virtualbox do |v|
         v.gui = false
-        v.memory = 2048
+        v.memory = 3000
     end
  end
 

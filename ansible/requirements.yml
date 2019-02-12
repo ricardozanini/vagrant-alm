@@ -17,3 +17,13 @@
 - src: geerlingguy.repo-epel
 
 - src: geerlingguy.ansible
+
+- src: lean_delivery.sonarqube
+
+- src: lean_delivery.java
+
+- src: ANXS.postgresql
+
+- src: jdauphant.ssl-certs
+
+- src: nginxinc.nginx
