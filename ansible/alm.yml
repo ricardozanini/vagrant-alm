@@ -53,11 +53,6 @@
       postgresql_databases:
         - name: sonar
           owner: sonar
-    - role: jdauphant.ssl-certs
-      ssl_certs_common_name: "sonar.local"
-      ssl_certs_path_owner: "root"
-      ssl_certs_path_group: "root"
-      ssl_certs_mode: "0755"
     - role: nginxinc.nginx
     - role: lean_delivery.sonarqube
       sonar_java_opts:
@@ -69,6 +64,7 @@
         port: 9000
         path: "/" 
       sonar_proxy_server_name: "{{ ssl_certs_common_name }}"
+      sonar_proxy_http: True
       # sonar_optional_plugins:
       #   - "https://sonarsource.bintray.com/Distribution/sonar-auth-github-plugin/sonar-auth-github-plugin-1.3.jar"
        #  - "https://github.com/QualInsight/qualinsight-plugins-sonarqube-smell/releases/download/qualinsight-plugins-sonarqube-smell-4.0.0/qualinsight-sonarqube-smell-plugin-4.0.0.jar"

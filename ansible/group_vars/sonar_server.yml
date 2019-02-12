@@ -1,3 +1,0 @@
-sonar_download_url: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.4.zip
-sonar_version_directory: sonarqube-6.4
-sonar_database_engine: postgres
